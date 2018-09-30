@@ -1,35 +1,4 @@
 package Week4th;
-/*
-
-
-import org.jfugue.player.Player;
-
-public class Driver {
-
-	// main mehod. It will add notes started at position 0 and ends 12 with
-	// length of 8 and 16
-	public static void main(String[] args) {
-		for (int i = 0; i < 12; i++)
-			for (int j = 8; j <= 16; j += 8) {
-				Note note = new Note(i, j);
-				System.out.println(note.frequencyOfTheNote()); // expects
-																// frequency of
-																// notes
-				System.out.println(note); // expects Value and length of notes
-				System.out.println(note.getLetterOfNote()); // expects letter of
-															// note
-				System.out.println(note.sharpOrNatural()); // expects sharp or
-															// natural
-				note.jFuguePlayer(note.getLetterOfNote()); // expect to play
-															// given note
-
-			}
-
-	}
-
-}
-
-*/
 
 import org.jfugue.player.Player;
 
@@ -40,6 +9,10 @@ import org.jfugue.player.Player;
  */
 public class Note {
 
+	public Note()
+	{
+		
+	}
 	/**
 	 * private variables
 	 */
@@ -110,13 +83,13 @@ public class Note {
 	 * @return the frequency of the note
 	 * 
 	 */
-	static double frequency = 0.0;
-	static double num = 0;
-
+	
 	// Gets the frequency of the note, based on notes' index
 	public static double frequencyOfTheNote() {
+		
+		
 
-		frequency = (Math.pow(2, ((double) value) / 12)) * 440;
+		 double frequency = (Math.pow(2, ((double) value) / 12)) * 440;
 		// Rounds frequency of the note to the 3 decimal places
 		double num = Math.round(frequency * 1000.0) / 1000.0;
 		return num;
@@ -128,12 +101,14 @@ public class Note {
 	 */
 	// Gets the frequency of all notes and rounds the frequency to 3 decimal
 	// places
-	public static double frequencyOfAllTheNotes() {
+	public static double frequencyOfAllTheNotes()
+	{
+		double num =0.0; 
 		for (int i = -48; i <= 39; i++) {
-			frequency = (Math.pow(2, (double) (i) / 12)) * 440;
-			double num = Math.round(frequency * 1000.0) / 1000.0;
-
+			double frequency = (Math.pow(2, (double) (i) / 12)) * 440;
+			num = Math.round(frequency * 1000.0) / 1000.0;
 		}
+		
 		return num;
 	}
 
@@ -142,9 +117,9 @@ public class Note {
 	 * Every note repeats every 12 positions Note A will be on
 	 * -48,-36,-24,-12,0,12,24
 	 * 
-	 * @return a letter note based on the note position using for loop
+	 * @return a letter note based on the note position by using for loop
 	 */
-	public static String getLetterOfNote() {
+	public String getLetterOfNote() {
 		String note = "";
 		for (int i = -48; i <= 36; i += 12)
 			if (value == i)
@@ -189,7 +164,7 @@ public class Note {
 
 	/**
 	 * 
-	 * @return letter of the given notes' value
+	 * @return letter of the given notes' value. 
 	 */
 	public static String getNote() {
 		String note = "";
@@ -259,12 +234,13 @@ public class Note {
 		}
 		return status;
 	}
+	
 
 	/**
 	 * 
 	 * @return the length of the note
 	 */
-	// there are 4 kind of note: sixteen note, quarter note, half note, or a
+	// there are 4 kinds of note: sixteen note, quarter note, half note, or a
 	// whole note
 	public static String getLengthNote() {
 		String lengthW = "";
@@ -287,7 +263,7 @@ public class Note {
 
 	/**
 	 * 
-	 * Plays the give note
+	 * Plays the given note
 	 */
 	public static void jFuguePlayer(String stringOfNotes) {
 		Player player = new Player();
@@ -296,4 +272,12 @@ public class Note {
 
 	}
 
+	public static void jFuguePlayer1() {
+		Player player = new Player();
+
+		player.play (" E Eb E Eb E B# D C A#"); 
+
+
+
+	}
 }
