@@ -16,8 +16,39 @@ public class Quadratic {
 	private double b;
 	private double c;
 
-	public String toString() {
-		return "Quadratic [a=" + a + ", b=" + b + ", c=" + c + "]";
+	public static void main(String[] args) {
+		//Create object of the qiadratic class	
+		Quadratic quadratic = new Quadratic(1, 2, 6);
+		//calculate discriminant 
+		double disc = quadratic.getDiscriminant();
+
+		// condition for real and different roots
+		if (disc > 0) {
+			double rootResult[] = quadratic.calculatesRealRoots();
+			System.out.println("root 1: " + rootResult[0] + " root 2: " + rootResult[1]);
+
+			// Condition for real and only one root
+		} else if (disc == 0) {
+			System.out.println(quadratic.calculateOneRoot());
+			// condition for complex number roots
+		} else if (disc < 0) {
+			quadratic.calculateComplexRoots();
+
+			System.out.println(quadratic.CalculateComplexNumbersUsingApacheCommons());
+		}
+
+		double vertex[] = quadratic.getVertex();
+		System.out.println("Vertex: " + vertex[0] + " :" + vertex[1]);
+
+		System.out.println(quadratic.hasComplexRoots());
+
+		System.out.println(quadratic.hasRealRoots());
+
+		System.out.println(quadratic.slopeAtX(2));
+
+		System.out.println(quadratic.evaluatePolonymialAtX(2));
+
+		System.out.println(quadratic);
 	}
 
 	/**
@@ -91,10 +122,14 @@ public class Quadratic {
 		this.c = c;
 	}
 
+	public String toString() {
+		return "Quadratic equation [a=" + a + ", b=" + b + ", c=" + c + "]";
+	}
+
 	/**
-	 * Compute the descriminant value
+	 * Compute the discriminant value
 	 * 
-	 * @return descriminant
+	 * @return discriminant
 	 */
 	public double getDiscriminant() {
 		double discriminant = Math.pow(this.b, 2) - (4 * this.a * this.c);
@@ -102,11 +137,11 @@ public class Quadratic {
 	}
 
 	/**
-	 * Check if discriminant is negative or not
+	 * Check if equation has real roots
 	 * 
 	 * @return true or false
 	 */
-	public boolean hasRealRoot() {
+	public boolean hasRealRoots() {
 
 		if (getDiscriminant() > 0) {
 			return true;
@@ -117,7 +152,7 @@ public class Quadratic {
 	}
 
 	/**
-	 * Check if discriminant is negative or not
+	 * Check if equation has complex roots
 	 * 
 	 * @return true or false
 	 */
@@ -134,7 +169,7 @@ public class Quadratic {
 	/**
 	 * Compute the value of real roots
 	 * 
-	 * @return value of real root1 and root2
+	 * @return [] value of real root1 and root2
 	 */
 	public double[] calculatesRealRoots() {
 
@@ -157,6 +192,7 @@ public class Quadratic {
 		return derivitive;
 	}
 
+	//Calculate one root if discriminant ==0
 	public double calculateOneRoot() {
 		double root = -b / (2 * a);
 		return root;
@@ -164,9 +200,9 @@ public class Quadratic {
 
 	/**
 	 * If discriminant is a negative number then the quadratic equation will
-	 * have no Real solutions. Instead there will be two Complex number of the form a + bi.
-	 * In order to get complex number we need to 
-	 * divide formula for computing roots into two parts: real part and imaginaryPart. 
+	 * have no Real solutions. Instead there will be two Complex number of the
+	 * form a + bi. In order to get complex number we need to divide formula for
+	 * computing roots into two parts: real part and imaginaryPart.
 	 */
 	public void calculateComplexRoots() {
 		double discriminant = Math.pow(this.b, 2) - (4 * this.a * this.c);
@@ -186,27 +222,27 @@ public class Quadratic {
 	 * 
 	 * @return String of root1 and root2
 	 */
-	public String CalculateComplexNumbersUsingApacheCommons()
-	{
+	public String CalculateComplexNumbersUsingApacheCommons() {
 		double discriminant = Math.pow(this.b, 2) - (4 * this.a * this.c);
 		double realPart = -b / (2 * this.a);
-		double imaginaryPart = Math.sqrt(-discriminant) / (2 * this.a);	
-		
-		Complex c1 = new Complex(realPart,-imaginaryPart);  
-		ComplexFormat format = new ComplexFormat(); 
-		String root1 = format.format(c1);  
-	
-		ComplexFormat format1 = new ComplexFormat(); 
+		double imaginaryPart = Math.sqrt(-discriminant) / (2 * this.a);
+
+		Complex c1 = new Complex(realPart, -imaginaryPart);
+		ComplexFormat format = new ComplexFormat();
+		String root1 = format.format(c1);
+
+		ComplexFormat format1 = new ComplexFormat();
 		Complex c2 = new Complex(realPart, imaginaryPart);
-		String root2 = format.format(c2); 
-	
-		return"Method from Apache Commons math library: \nroot1= "+ root1+ "\nroot2= "+ root2; 
+		String root2 = format.format(c2);
+
+		return "Method from Apache Commons math library: \nroot1= " + root1 + "\nroot2= " + root2;
 
 	}
+
 	/**
 	 * Calculate the vertex of the parabola (x1,y1)
 	 * 
-	 * @return vertex
+	 * @return [] vertex
 	 */
 	public double[] getVertex() {
 
