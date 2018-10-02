@@ -4,7 +4,7 @@ public class QuadraticDriver {
 
 	public static void main(String[] args) {
 
-		Quadratic quadratic = new Quadratic(1, -2, -8);
+		Quadratic quadratic = new Quadratic(1, 2, 6);
 		double disc = quadratic.getDiscriminant();
 
 		// condition for real and different roots
@@ -18,6 +18,8 @@ public class QuadraticDriver {
 			// condition for complex number roots
 		} else if (disc < 0) {
 			quadratic.calculateComplexRoots();
+			
+			System.out.println(quadratic.CalculateComplexNumbersUsingApacheCommons());
 		}
 
 		double vextor[] = quadratic.getVertex();

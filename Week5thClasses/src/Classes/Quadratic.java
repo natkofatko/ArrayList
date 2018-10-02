@@ -1,5 +1,10 @@
 package Classes;
 
+import java.text.NumberFormat;
+
+import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.complex.ComplexFormat;
+
 /**
  * 
  * @author natalia
@@ -159,23 +164,45 @@ public class Quadratic {
 
 	/**
 	 * If discriminant is a negative number then the quadratic equation will
-	 * have no Real solutions. Instead there will be two Complex number. we can
-	 * divide formula for computing roots into two parts:
+	 * have no Real solutions. Instead there will be two Complex number of the form a + bi.
+	 * In order to get complex number we need to 
+	 * divide formula for computing roots into two parts: real part and imaginaryPart. 
 	 */
 	public void calculateComplexRoots() {
 		double discriminant = Math.pow(this.b, 2) - (4 * this.a * this.c);
-		double realNumber = -b / (2 * this.a);
-		double complexNumber = Math.sqrt(-discriminant) / (2 * this.a);
+		double realPart = -b / (2 * this.a);
+		double imaginaryPart = Math.sqrt(-discriminant) / (2 * this.a);
 
 		// using printf method to get a specified standard format of complex
 		// numbers
-		System.out.printf("root1 = %.4f+%.3fi", realNumber, complexNumber);
+		System.out.printf("root1 = %.4f+%.3fi", realPart, imaginaryPart);
 		System.out.println(" ");
-		System.out.printf("root2 = %.4f-%.3fi", realNumber, complexNumber);
+		System.out.printf("root2 = %.4f-%.3fi", realPart, imaginaryPart);
 		System.out.println(" ");
 
 	}
 
+	/**
+	 * 
+	 * @return String of root1 and root2
+	 */
+	public String CalculateComplexNumbersUsingApacheCommons()
+	{
+		double discriminant = Math.pow(this.b, 2) - (4 * this.a * this.c);
+		double realPart = -b / (2 * this.a);
+		double imaginaryPart = Math.sqrt(-discriminant) / (2 * this.a);	
+		
+		Complex c1 = new Complex(realPart,-imaginaryPart);  
+		ComplexFormat format = new ComplexFormat(); 
+		String root1 = format.format(c1);  
+	
+		ComplexFormat format1 = new ComplexFormat(); 
+		Complex c2 = new Complex(realPart, imaginaryPart);
+		String root2 = format.format(c2); 
+	
+		return"Method from Apache Commons math library: \nroot1= "+ root1+ "\nroot2= "+ root2; 
+
+	}
 	/**
 	 * Calculate the vertex of the parabola (x1,y1)
 	 * 
